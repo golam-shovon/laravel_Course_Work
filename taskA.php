@@ -11,7 +11,7 @@ class Course
 class Student
 {
 	public $name;
-	public $ballance=50000;
+	public $balance=50000;
 	public $courlist=array();
 	function __construct($name)
 	{
@@ -24,7 +24,7 @@ class Student
 	public function addcourse($course)
 	{
 		array_push($this->courlist,$course);
-		$ballance=$ballance-10000;	
+		$balance=$balance-10000;
 	}
 	public function deletecourse($course)
 	{
@@ -36,7 +36,7 @@ class Student
 	}
 	public function getballance()
 	{
-		return $this->ballance;
+		return $this->balance;
 	}
 }
 $studentOne=new Student('studentOne');
