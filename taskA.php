@@ -2,9 +2,19 @@
 class Course
 {
 	public $name;
+	public $student_list=[];
 	function __construct($name)
     {
         $this->name = $name;
+    }
+    public function getcoursestudent()
+    {
+        $string= json_encode(array_values($this->student_list)).' '.$this->name."<br>";
+        return $string;
+    }
+    public function  getar()
+    {
+         $this->student_list;
     }
 }
 class Student
@@ -18,24 +28,27 @@ class Student
 	}
 	public function getcourse()
 	{
-		return $this->courlist;
+		$string= json_encode(array_values($this->courlist)).' '.$this->name."<br>";
+		return $string;
 	}
-	public function addcourse($course)
+	public function addcourse($Course)
 	{
-		array_push($this->courlist,$course);
-        $this->balance-10000;
+		array_push($this->courlist,$Course->name);
+        array_push($Course->student_list,$this->name);
+        $this->balance=$this->balance-10000;
 	}
 	public function deletecourse($course)
 	{
-		if (($key = array_search($course, $array)) !== false) 
+		if (($key = array_search($course, $this->courlist)) !== false)
 		{
-		unset($array[$key]);
-		$this->balance+10000;
+		unset($this->courlist[$key]);
+		$this->balance=$this->balance+10000;
 		}
 	}
 	public function getballance()
 	{
-		return $this->balance;
+		$t='balance:'.' '. $this->balance.' '.$this->name.' '."<br>";
+		return $t;
 	}
 }
 $studentOne=new Student('studentOne');
@@ -47,14 +60,20 @@ $c1=new Course('php');
 $csharp=new Course('csharp');
 $cplusplus=new Course('cplusplus');
 
-echo $studentOne->getballance()." ".'studentOne'.' '.'before any course'.' '."\r\n";
-echo $studentTwo->getballance().'studentTwo'.'before any course'."\r\n";
-echo $studentThree->getballance().'studentThree'.'before any course'."\r\n";
-$studentOne->addcourse($c1->name);
-$studentOne->addcourse($csharp->name);
+echo $studentOne->getballance().'before any course'.' '."<br>";
+echo $studentTwo->getballance().'before any course'.' '."<br>";
+echo $studentThree->getballance().'before any course'.' '."<br>";
+$studentOne->addcourse($c1);
+$studentOne->addcourse($csharp);
+print_r($studentOne->getcourse());
+echo $studentOne->getballance();
+$studentOne->deletecourse($csharp->name);
+echo $studentOne->getballance();
+print_r($studentOne->getcourse());
+print_r($c1->getcoursestudent());
 
-$t=$studentOne->courlist;
-print_r(json_encode(array_values($t)));
+
+
 
 
 
