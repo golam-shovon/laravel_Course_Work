@@ -3,16 +3,15 @@ class Course
 {
 	public $name;
 	function __construct($name)
-	{
-		$this->name=$name;
-	}
-	
+    {
+        $this->name = $name;
+    }
 }
 class Student
 {
 	public $name;
 	public $balance=50000;
-	public $courlist= [];
+	public $courlist= array();
 	function __construct($name)
 	{
 		$this->name=$name;
@@ -21,9 +20,9 @@ class Student
 	{
 		return $this->courlist;
 	}
-	public function addcourse($Course)
+	public function addcourse($course)
 	{
-		array_push($this->courlist,$Course->name);
+		array_push($this->courlist,$course);
         $this->balance-10000;
 	}
 	public function deletecourse($course)
@@ -48,11 +47,14 @@ $c1=new Course('php');
 $csharp=new Course('csharp');
 $cplusplus=new Course('cplusplus');
 
-echo $studentOne->getballance().'studentOne'.'before any course'.'\n';
-echo $studentTwo->getballance().'studentTwo'.'before any course'.'\n';
-echo $studentThree->getballance().'studentThree'.'before any course'.'\n';
-$studentOne->addcourse($c1);
-echo $studentOne->getcourse();
+echo $studentOne->getballance()." ".'studentOne'.' '.'before any course'.' '."\r\n";
+echo $studentTwo->getballance().'studentTwo'.'before any course'."\r\n";
+echo $studentThree->getballance().'studentThree'.'before any course'."\r\n";
+$studentOne->addcourse($c1->name);
+$studentOne->addcourse($csharp->name);
+
+$t=$studentOne->courlist;
+print_r(json_encode(array_values($t)));
 
 
 
