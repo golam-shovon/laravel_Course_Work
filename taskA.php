@@ -37,13 +37,18 @@ class Student
         array_push($Course->student_list,$this->name);
         $this->balance=$this->balance-10000;
 	}
-	public function deletecourse($course)
+	public function deletecourse($Course)
 	{
-		if (($key = array_search($course, $this->courlist)) !== false)
+		if (($key = array_search($Course->name, $this->courlist)) !== false)
 		{
 		unset($this->courlist[$key]);
 		$this->balance=$this->balance+10000;
 		}
+
+        if (($key = array_search($this->name, $Course->student_list)) !== false)
+        {
+            unset($Course->student_list[$key]);
+        }
 	}
 	public function getballance()
 	{
@@ -59,17 +64,36 @@ $studentThree=new Student('studentThree');
 $c1=new Course('php');
 $csharp=new Course('csharp');
 $cplusplus=new Course('cplusplus');
-
-echo $studentOne->getballance().'before any course'.' '."<br>";
-echo $studentTwo->getballance().'before any course'.' '."<br>";
-echo $studentThree->getballance().'before any course'.' '."<br>";
+echo'before any course student balance'.'<br>';
+echo $studentOne->getballance()."<br>";
+echo $studentTwo->getballance()."<br>";
+echo $studentThree->getballance()."<br>";
 $studentOne->addcourse($c1);
 $studentOne->addcourse($csharp);
+$studentOne->addcourse($cplusplus);
+$studentTwo->addcourse($csharp);
+$studentTwo->addcourse($c1);
+$studentTwo->addcourse($cplusplus);
+$studentThree->addcourse($csharp);
+$studentThree->addcourse($c1);
+$studentThree->addcourse($cplusplus);
+
+echo'after adding three courses to all students'.'<br>';
 print_r($studentOne->getcourse());
 echo $studentOne->getballance();
-$studentOne->deletecourse($csharp->name);
-echo $studentOne->getballance();
+print_r($studentTwo->getcourse());
+echo $studentTwo->getballance();
+print_r($studentThree->getcourse());
+echo $studentThree->getballance();
+echo 'dropping one course php from student one';
+$studentOne->deletecourse($c1);
 print_r($studentOne->getcourse());
+echo $studentOne->getballance();
+echo 'dropping one course c# from student three';
+$studentThree->deletecourse($csharp);
+print_r($studentThree->getcourse());
+echo $studentThree->getballance();
+echo 'php course student details';
 print_r($c1->getcoursestudent());
 
 
